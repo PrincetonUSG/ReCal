@@ -12,8 +12,8 @@ class SemCtrl {
         ];
 
     // TODO: get this from the server
-    private static CURRENT_SEMESTER_TERM_CODE = 1192;
-    private static LAST_AVAILABLE_TERM_CODE = 1202;
+    private static CURRENT_SEMESTER_TERM_CODE = 1154;
+    private static LAST_AVAILABLE_TERM_CODE = 1162;
     private semesters;
 
     constructor(private $scope,
