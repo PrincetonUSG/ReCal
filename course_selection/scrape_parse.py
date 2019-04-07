@@ -11,27 +11,31 @@ Procedure:
 from lxml import etree
 import HTMLParser
 import urllib2
-from bs4 import BeautifulSoup
 import re
+import json
 
+from bs4 import BeautifulSoup
 
 class ParseError(Exception):
-
     def __init__(self, value):
         self.value = value
 
     def __str__(self):
         return repr(self.value)
 
+def get_registrar_data(url):
+    req = urllib2.urlopen(url)
+    data = req.read()
+    req.close()
+    bs = BeautifulSoup(data)
+    script = bs.find('script', attrs={'data-drupal-selector': "drupal-settings-json"})
+    return json.loads(script.text)
 
 def scrape_parse_semester(term_code):
     TERM_CODE = term_code
     COURSE_OFFERINGS = "http://registrar.princeton.edu/course-offerings/"
     FEED_PREFIX = "http://etcweb.princeton.edu/webfeeds/courseofferings/"
 
-    # Could also use 'current' instead of str(TERM_CODE), which automatically
-    # gets the current semester. caveat: cannot get next semester's schedule
-    # ahead of time
     TERM_PREFIX = FEED_PREFIX + "?term=" + str(TERM_CODE)
     DEP_PREFIX = TERM_PREFIX + "&subject="
 
@@ -63,19 +67,16 @@ def scrape_parse_semester(term_code):
             }
         return CURRENT_SEMESTER[0]
 
-    def get_department_list(seed_page):
+    def get_department_list(url):
         """ get list of departments
 
         Parses seed_page and returns a list of the departments' names.
         Seed page should be "http://registrar.princeton.edu/course-offerings/"
         Automatically gets the courses for the current term.
         """
-        soup = BeautifulSoup(seed_page)
-        # Example tag:
-        # <input name="subject" type="checkbox" value="COS">
-        dept_tags = soup('input', {"name": "subject"})
-        departments = map(lambda t: t.attrs['value'], dept_tags)
-        return departments
+        data = get_registrar_data(url)
+        term_data = data['ps_registrar']['subjects'][str(term_code)]
+        return map(lambda x: x['code'], term_data)
 
     def scrape_all():
         """ scrape all events from Princeton's course webfeed
@@ -83,8 +84,7 @@ def scrape_parse_semester(term_code):
         """
         #global course_count
         #global section_count
-        seed_page = urllib2.urlopen(COURSE_OFFERINGS)
-        departments = get_department_list(seed_page)
+        departments = get_department_list(COURSE_OFFERINGS)
         courses = []
         for department in departments:
             courses += scrape(department)
