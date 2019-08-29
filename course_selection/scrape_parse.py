@@ -84,19 +84,8 @@ def scrape_parse_semester(term_code):
         """
         #global course_count
         #global section_count
-        departments = get_department_list(COURSE_OFFERINGS)
-        courses = []
-        for department in departments:
-            courses += scrape(department)
-        return courses
-
-    # goes through the listings for this department
-    def scrape(department):
-        """ Scrape all events listed under department
-
-        """
         parser = etree.XMLParser(ns_clean=True)
-        link = DEP_PREFIX + department
+        link = DEP_PREFIX + "all"
         xmldoc = urllib2.urlopen(link)
         tree = etree.parse(xmldoc, parser)
         dep_courses = tree.getroot()
@@ -111,7 +100,7 @@ def scrape_parse_semester(term_code):
                             if x is not None:
                                 parsed_courses.append(x)
         return parsed_courses
-
+        
     def none_to_empty(text):
         if text is None:
             return ''
