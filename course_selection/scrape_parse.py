@@ -212,6 +212,7 @@ def scrape_parse_semester(term_code):
         if schedule is not None:
             meetings = schedule.find('meetings')
         typeName = get_text('type_name', section)
+        print(typeName)
         if typeName is None:
             typeName = "MEEE"
         return {
