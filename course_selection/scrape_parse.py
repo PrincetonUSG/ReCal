@@ -104,15 +104,10 @@ def scrape_parse_semester(term_code):
         remove_namespace(dep_courses, PTON_NAMESPACE)
         parsed_courses = []
         for term in dep_courses:
-            print("dep")
             for subjects in term:
-                print("term")
                 for subject in subjects:
-                    print("subject")
                     for courses in subject:
-                        print("course")
                         for course in courses:
-                            print("new course")
                             x = parse_course(course, subject)
                             if x is not None:
                                 parsed_courses.append(x)
@@ -143,6 +138,13 @@ def scrape_parse_semester(term_code):
 
         """
         try:
+            print(get_text('title', course))
+            print(get_text('guid', course))
+            print(none_to_empty(course.find('detail').find('description').text))
+            print(get_current_semester())
+            print([parse_prof(x) for x in course.find('instructors')])
+            print(parse_listings(course, subject))
+            print([parse_section(x) for x in course.find('classes')])
             #global new_course_count
             #global course_count
             return {
