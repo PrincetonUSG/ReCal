@@ -213,6 +213,7 @@ def scrape_parse_semester(term_code):
             meetings = schedule.find('meetings')
         print(get_text('class_number', section))
         print(get_text('section', section))
+        print(get_text('type_name', section))
         print(get_text('type_name', section)[0:3].upper())
         print(get_text('capacity', section))
         print(get_text('enrollment', section))
