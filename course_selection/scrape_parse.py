@@ -126,6 +126,7 @@ def scrape_parse_semester(term_code):
             return x
 
     def raise_if_none(text, error_message):
+        print("raise if none error")
         if text is None:
             raise ParseError(error_message)
         return text
@@ -213,7 +214,7 @@ def scrape_parse_semester(term_code):
             meetings = schedule.find('meetings')
         print(get_text('class_number', section))
         print(get_text('section', section))
-        print(get_text('type_name', section))
+        print(section)
         print(get_text('type_name', section)[0:3].upper())
         print(get_text('capacity', section))
         print(get_text('enrollment', section))
