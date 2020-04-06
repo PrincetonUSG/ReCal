@@ -97,7 +97,6 @@ def scrape_parse_semester(term_code):
         """
         parser = etree.XMLParser(ns_clean=True)
         link = DEP_PREFIX + department
-        print(link)
         xmldoc = urllib2.urlopen(link)
         tree = etree.parse(xmldoc, parser)
         dep_courses = tree.getroot()
@@ -138,8 +137,6 @@ def scrape_parse_semester(term_code):
 
         """
         try:
-            print(parse_listings(course, subject))
-            print([parse_section(x) for x in course.find('classes')])
             #global new_course_count
             #global course_count
             return {
@@ -152,7 +149,6 @@ def scrape_parse_semester(term_code):
                 "sections": [parse_section(x) for x in course.find('classes')]
             }
         except Exception as inst:
-            print("parsing course failed")
             # print inst
             raise inst
             return None
