@@ -97,6 +97,7 @@ def scrape_parse_semester(term_code):
         """
         parser = etree.XMLParser(ns_clean=True)
         link = DEP_PREFIX + department
+        print(link)
         xmldoc = urllib2.urlopen(link)
         tree = etree.parse(xmldoc, parser)
         dep_courses = tree.getroot()
