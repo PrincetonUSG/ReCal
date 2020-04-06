@@ -155,6 +155,7 @@ def scrape_parse_semester(term_code):
                 "sections": [parse_section(x) for x in course.find('classes')]
             }
         except Exception as inst:
+            print("parsing course failed")
             # print inst
             raise inst
             return None
