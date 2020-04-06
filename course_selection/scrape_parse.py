@@ -182,7 +182,6 @@ def scrape_parse_semester(term_code):
 
     def parse_section(section):
         def parse_meeting(meeting):
-            print("parsing meeting")
             def get_days(meeting):
                 days = ""
                 for day in meeting.find('days'):
@@ -212,6 +211,12 @@ def scrape_parse_semester(term_code):
         schedule = section.find('schedule')
         if schedule is not None:
             meetings = schedule.find('meetings')
+        print(get_text('class_number', section))
+        print(get_text('section', section))
+        print(get_text('type_name', section)[0:3].upper())
+        print(get_text('capacity', section))
+        print(get_text('enrollment', section))
+        print([parse_meeting(x) for x in none_to_empty_list(meetings)])
         return {
             'registrar_id': get_text('class_number', section),
             'name': get_text('section', section),
