@@ -103,6 +103,7 @@ def scrape_parse_semester(term_code):
         dep_courses = tree.getroot()
         remove_namespace(dep_courses, PTON_NAMESPACE)
         parsed_courses = []
+        print(dep_courses)
         for term in dep_courses:
             for subjects in term:
                 for subject in subjects:
