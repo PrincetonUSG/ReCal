@@ -211,11 +211,11 @@ def scrape_parse_semester(term_code):
         schedule = section.find('schedule')
         if schedule is not None:
             meetings = schedule.find('meetings')
-        print(get_text('class_number', section))
-        typeName = get_text('type_name', section)
-        print(typeName)
-        if typeName is None:
-            typeName = "MEEE"
+        
+        typeName = "UNKNOWN"
+        if get_text('section', section) != "M99":
+            typeName = get_text('type_name', section)
+
         return {
             'registrar_id': get_text('class_number', section),
             'name': get_text('section', section),
