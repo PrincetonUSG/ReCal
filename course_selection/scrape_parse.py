@@ -138,11 +138,6 @@ def scrape_parse_semester(term_code):
 
         """
         try:
-            print(get_text('title', course))
-            print(get_text('guid', course))
-            print(none_to_empty(course.find('detail').find('description').text))
-            print(get_current_semester())
-            print([parse_prof(x) for x in course.find('instructors')])
             print(parse_listings(course, subject))
             print([parse_section(x) for x in course.find('classes')])
             #global new_course_count
@@ -187,6 +182,7 @@ def scrape_parse_semester(term_code):
 
     def parse_section(section):
         def parse_meeting(meeting):
+            print("parsing meeting")
             def get_days(meeting):
                 days = ""
                 for day in meeting.find('days'):
