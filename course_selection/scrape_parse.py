@@ -126,7 +126,6 @@ def scrape_parse_semester(term_code):
             return x
 
     def raise_if_none(text, error_message):
-        print("raise if none error")
         if text is None:
             raise ParseError(error_message)
         return text
@@ -212,17 +211,13 @@ def scrape_parse_semester(term_code):
         schedule = section.find('schedule')
         if schedule is not None:
             meetings = schedule.find('meetings')
-        print(get_text('class_number', section))
-        print(get_text('section', section))
-        print(section)
-        print(get_text('type_name', section)[0:3].upper())
-        print(get_text('capacity', section))
-        print(get_text('enrollment', section))
-        print([parse_meeting(x) for x in none_to_empty_list(meetings)])
+        typeName = get_text('type_name', section)
+        if typeName is None:
+            typeName = "MEEE"
         return {
             'registrar_id': get_text('class_number', section),
             'name': get_text('section', section),
-            'type': get_text('type_name', section)[0:3].upper(),
+            'type': typeName[0:3].upper(),
             'capacity': get_text('capacity', section),
             'enrollment': get_text('enrollment', section),
             'meetings': [parse_meeting(x) for x in none_to_empty_list(meetings)]
