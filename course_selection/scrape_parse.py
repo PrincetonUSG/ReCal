@@ -181,18 +181,14 @@ def scrape_parse_semester(term_code):
         return cross_listings + [primary_listing]
 
     def parse_section(section):
-        print("parsing section")
         def parse_meeting(meeting):
-            print("parse meeting")
             def get_days(meeting):
-                print("days")
                 days = ""
                 for day in meeting.find('days'):
                     days += day.text + ' '
                 return days[:10]
 
             def get_location(meeting):
-                print("location")
                 location = ''
                 try:
                     building = meeting.find('building').find('name').text
@@ -216,11 +212,14 @@ def scrape_parse_semester(term_code):
         schedule = section.find('schedule')
         if schedule is not None:
             meetings = schedule.find('meetings')
-        print("here")
+
         typeName = "UNKNOWN"
         if get_text('section', section) != "M99":
-            typeName = get_text('type_name', section)
-        print("here 2")
+            try:
+                typeName = get_text('type_name', section)
+            except:
+                print("error reading section")
+        print(typeName)
         test = {
             'registrar_id': get_text('class_number', section),
             'name': get_text('section', section),
@@ -229,7 +228,6 @@ def scrape_parse_semester(term_code):
             'enrollment': get_text('enrollment', section),
             'meetings': [parse_meeting(x) for x in none_to_empty_list(meetings)]
         }
-        print("done section")
         return test
 
     def remove_namespace(doc, namespace):
