@@ -163,6 +163,7 @@ def scrape_parse_semester(term_code):
         }
 
     def parse_listings(course, subject):
+        print("listing")
         def parse_cross_listing(cross_listing):
             return {
                 'dept': get_text('subject', cross_listing),
@@ -179,8 +180,9 @@ def scrape_parse_semester(term_code):
         return cross_listings + [primary_listing]
 
     def parse_section(section):
-        print("parsing sections")
+        print("parsing section")
         def parse_meeting(meeting):
+            print("parse meeting")
             def get_days(meeting):
                 days = ""
                 for day in meeting.find('days'):
@@ -215,7 +217,7 @@ def scrape_parse_semester(term_code):
         if get_text('section', section) != "M99":
             typeName = get_text('type_name', section)
 
-        return {
+        test = {
             'registrar_id': get_text('class_number', section),
             'name': get_text('section', section),
             'type': typeName[0:3].upper(),
@@ -223,6 +225,8 @@ def scrape_parse_semester(term_code):
             'enrollment': get_text('enrollment', section),
             'meetings': [parse_meeting(x) for x in none_to_empty_list(meetings)]
         }
+        print("done section")
+        return test
 
     def remove_namespace(doc, namespace):
         """Hack to remove namespace in the document in place.
