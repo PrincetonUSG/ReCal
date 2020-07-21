@@ -136,7 +136,7 @@ def scrape_parse_semester(term_code):
         """ create a course with basic information.
 
         """
-        print(get_text('title', course))
+        print(get_text('title', course), "  DEPT: ", get_text('code', subject))
         try:
             #global new_course_count
             #global course_count
@@ -151,6 +151,7 @@ def scrape_parse_semester(term_code):
             }
         except Exception as inst:
             # print inst
+            print(inst)
             raise inst
             return None
 
@@ -178,6 +179,7 @@ def scrape_parse_semester(term_code):
         return cross_listings + [primary_listing]
 
     def parse_section(section):
+        print("parsing sections")
         def parse_meeting(meeting):
             def get_days(meeting):
                 days = ""
