@@ -136,7 +136,7 @@ def scrape_parse_semester(term_code):
         """ create a course with basic information.
 
         """
-        print(course)
+        print(get_text('title', course))
         try:
             #global new_course_count
             #global course_count
