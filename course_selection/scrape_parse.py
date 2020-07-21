@@ -47,8 +47,6 @@ def scrape_parse_semester(term_code):
     h = HTMLParser.HTMLParser()
 
     def get_text(key, object):
-        print(key)
-        print(object)
         return h.unescape(raise_if_none(object.find(key), "key " + key + " does not exist").text)
 
     def get_current_semester():
@@ -138,7 +136,6 @@ def scrape_parse_semester(term_code):
         """ create a course with basic information.
 
         """
-        print(get_text('title', course), "  DEPT: ", get_text('code', subject))
         try:
             #global new_course_count
             #global course_count
@@ -153,7 +150,6 @@ def scrape_parse_semester(term_code):
             }
         except Exception as inst:
             # print inst
-            print(inst)
             raise inst
             return None
 
@@ -219,7 +215,7 @@ def scrape_parse_semester(term_code):
                 typeName = get_text('type_name', section)
             except:
                 print("error reading section")
-        print(typeName)
+
         test = {
             'registrar_id': get_text('class_number', section),
             'name': get_text('section', section),
