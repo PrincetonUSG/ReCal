@@ -163,7 +163,6 @@ def scrape_parse_semester(term_code):
         }
 
     def parse_listings(course, subject):
-        print("listing")
         def parse_cross_listing(cross_listing):
             return {
                 'dept': get_text('subject', cross_listing),
@@ -184,12 +183,14 @@ def scrape_parse_semester(term_code):
         def parse_meeting(meeting):
             print("parse meeting")
             def get_days(meeting):
+                print("days")
                 days = ""
                 for day in meeting.find('days'):
                     days += day.text + ' '
                 return days[:10]
 
             def get_location(meeting):
+                print("location")
                 location = ''
                 try:
                     building = meeting.find('building').find('name').text
@@ -207,16 +208,17 @@ def scrape_parse_semester(term_code):
                 'days': get_days(meeting),
                 'location': get_location(meeting),
             }
+
         # NOTE: section.find('schedule') doesn't seem to be used
         meetings = None
         schedule = section.find('schedule')
         if schedule is not None:
             meetings = schedule.find('meetings')
-        
+        print("here")
         typeName = "UNKNOWN"
         if get_text('section', section) != "M99":
             typeName = get_text('type_name', section)
-
+        print("here 2")
         test = {
             'registrar_id': get_text('class_number', section),
             'name': get_text('section', section),
