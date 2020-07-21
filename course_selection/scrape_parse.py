@@ -47,6 +47,8 @@ def scrape_parse_semester(term_code):
     h = HTMLParser.HTMLParser()
 
     def get_text(key, object):
+        print(key)
+        print(object)
         return h.unescape(raise_if_none(object.find(key), "key " + key + " does not exist").text)
 
     def get_current_semester():
