@@ -12,6 +12,7 @@ def get_all_courses():
             print "Scraping for semester " + str(term_code)
             courses = scrape_parse_semester(term_code)
             # just a sanity check in case we ever modify scrape_parse
+            print("start validating")
             [validate_course(x) for x in courses]
             print("validated")
             scrapeCounter = ScrapeCounter()
