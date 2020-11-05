@@ -4,6 +4,6 @@
     "typescript": "2.2.2"
   },
   "engine": {
-    "node": "12.x"
+    "node": "15.1.0"
   }
 }
