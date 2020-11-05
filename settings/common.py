@@ -192,9 +192,9 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # Similarly, the Spring 2017 term is 1174 - the ending year is 2017.
 # Note: generally, limit this to three terms. This defines the terms that are
 #   scraped and the default terms displayed on schedules.
-ACTIVE_TERMS = [1204, 1212, 1214]
+ACTIVE_TERMS = [1204, 1214]
 
 # TODO: is this still used? if not, we can remove it
 # Use helper method nice.models.get_cur_semester() to get current Semester
 # object.
-CURR_TERM = 1212
+CURR_TERM = 1214
