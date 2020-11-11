@@ -13,6 +13,7 @@ import HTMLParser
 import urllib2
 import re
 import json
+import os
 
 from bs4 import BeautifulSoup
 
@@ -34,7 +35,7 @@ def get_registrar_data(url):
 def scrape_parse_semester(term_code):
     TERM_CODE = term_code
     COURSE_OFFERINGS = "http://registrar.princeton.edu/course-offerings/"
-    FEED_PREFIX = "http://etcweb.princeton.edu/webfeeds/courseofferings/"
+    FEED_PREFIX = "https://api.princeton.edu:443/mobile-app/1.0.0/courses/courses"
 
     TERM_PREFIX = FEED_PREFIX + "?term=" + str(TERM_CODE)
     DEP_PREFIX = TERM_PREFIX + "&subject="
@@ -97,7 +98,9 @@ def scrape_parse_semester(term_code):
         """
         parser = etree.XMLParser(ns_clean=True)
         link = DEP_PREFIX + department
-        xmldoc = urllib2.urlopen(link)
+        headers = {'Authorization': os.environ.get('MOBILEAPP_TOKEN') }
+        req = urllib2.Request(link, headers)
+        xmldoc = urllib2.urlopen(req)
         tree = etree.parse(xmldoc, parser)
         dep_courses = tree.getroot()
         remove_namespace(dep_courses, PTON_NAMESPACE)
