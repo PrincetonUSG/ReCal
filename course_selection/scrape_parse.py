@@ -98,9 +98,11 @@ def scrape_parse_semester(term_code):
         """
         parser = etree.XMLParser(ns_clean=True)
         link = DEP_PREFIX + department
+        print(link)
         headers = {'Authorization': os.environ.get('MOBILEAPP_TOKEN') }
         req = urllib2.Request(link, headers)
         xmldoc = urllib2.urlopen(req)
+        print(xmldoc)
         tree = etree.parse(xmldoc, parser)
         dep_courses = tree.getroot()
         remove_namespace(dep_courses, PTON_NAMESPACE)
