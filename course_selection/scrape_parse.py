@@ -101,6 +101,8 @@ def scrape_parse_semester(term_code):
         print(link)
         headers = {'Authorization': os.environ.get('MOBILEAPP_TOKEN') }
         req = urllib2.Request(link, headers)
+        print(req)
+        print(os.environ.get('MOBILEAPP_TOKEN'))
         xmldoc = urllib2.urlopen(req)
         print(xmldoc)
         tree = etree.parse(xmldoc, parser)
