@@ -6,7 +6,7 @@ from scrape_import import scrape_import_course, ScrapeCounter
 
 def get_all_courses():
     # we can generate these given settings.CURR_TERM
-    term_codes = [1214]
+    term_codes = [1222]
     for term_code in term_codes:
         try:
             print "Scraping for semester " + str(term_code)
