@@ -33,4 +33,3 @@ static3==0.5.1
 whitenoise==1.0.6
 wsgiref==0.1.2
 icalendar==3.9.1
-setuptools==1.0
