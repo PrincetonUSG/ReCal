@@ -243,7 +243,7 @@
   color: white;
   cursor: pointer;
 }
-.eval-tag {
+.snatch-tag {
   cursor: pointer;
   position: absolute;
   top: 0;
@@ -253,7 +253,7 @@
   background-color: orange;
   z-index: 10;
 }
-.eval-tag i {
+.snatch-tag i {
   top: 25%;
   width: 100%;
   position: absolute;
