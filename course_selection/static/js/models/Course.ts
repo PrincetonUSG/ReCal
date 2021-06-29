@@ -9,6 +9,7 @@ import Section = require('../models/Section');
 class Course implements ICourse {
     private static EASYPCE_BASE_URL: string = "http://easypce.com/courses/";
     private static REGISTRAR_BASE_URL: string = "https://registrar.princeton.edu/course-offerings/course_details.xml?";
+    private static COURSES_BASE_URL: string = "https://www.princetoncourses.com/course/"
     private static TIGERSNATCH_BASE_URL: string = "https://snatch.tigerapps.org/course?";
     private static REGISTRAR_ID_DIGITS: number = 6;
 
@@ -27,6 +28,7 @@ class Course implements ICourse {
     public rating: number;
     public easypce_link: string;
     public registrar_link: string;
+    public courses_link: string;
     public snatch_link: string;
 
     constructor(title, description, course_listings,
@@ -51,12 +53,18 @@ class Course implements ICourse {
         this.enrolled = enrolled ? enrolled : false;
         this.easypce_link = Course.EASYPCE_BASE_URL + this.primary_listing;
         this.registrar_link = this.getRegistrarLink();
+        this.courses_link = this.getCoursesLink();
         this.snatch_link = this.getSnatchLink();
     }
 
     private getRegistrarLink(): string {
         return Course.REGISTRAR_BASE_URL + "courseid=" 
             + this.registrar_id + "&term=" + this.semester.term_code;
+    }
+
+    private getCoursesLink(): string {
+        return Course.COURSES_BASE_URL + this.semester.term_code
+            + this.registrar_id;
     }
 
     private getSnatchLink(): string {

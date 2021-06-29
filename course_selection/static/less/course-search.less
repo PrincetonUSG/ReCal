@@ -40,7 +40,7 @@
 .course-panel-title {
     text-align: left;
     padding-left: 2px;
-    width: 100% - 3 * @tag-width;
+    width: 100% - 4 * @tag-width;
 }
 
 .course-panels-container {
@@ -204,6 +204,10 @@
     .absolute-tag();
     right: 2 * @tag-width;
 }
+.fourth-rightmost-tag {
+    .absolute-tag();
+    right: 3 * @tag-width;
+}
 .add-tag {
     .rightmost-tag();
     background-color: green;
@@ -215,8 +219,13 @@
     z-index: 10;
 }
 
-.snatch-tag {
+.courses-tag {
     .third-rightmost-tag();
+    background-color: cornflowerblue;
+    z-index: 10;
+}
+.snatch-tag {
+    .fourth-rightmost-tag();
     background-color: orange;
     z-index: 10;
 }
