@@ -18,7 +18,7 @@
 .course-panel-title {
   text-align: left;
   padding-left: 2px;
-  width: 70%;
+  width: 60%;
 }
 .course-panels-container {
   position: relative;
@@ -243,13 +243,32 @@
   color: white;
   cursor: pointer;
 }
-.snatch-tag {
+.courses-tag {
   cursor: pointer;
   position: absolute;
   top: 0;
   height: 100%;
   width: 10%;
   right: 20%;
+  background-color: cornflowerblue;
+  z-index: 10;
+}
+.courses-tag i {
+  top: 25%;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  font-size: 15px;
+  color: white;
+  cursor: pointer;
+}
+.snatch-tag {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 10%;
+  right: 30%;
   background-color: orange;
   z-index: 10;
 }
