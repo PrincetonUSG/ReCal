@@ -19,4 +19,4 @@ def get_all_courses():
             print str(scrapeCounter)
             print "----------------------------------"
         except Exception as e:
-            raise e
+            print e
