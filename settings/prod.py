@@ -1,4 +1,4 @@
-from common import *  # NOQA
+from .common import *  # NOQA
 from os import environ
 
 # DEBUG CONFIGURATION

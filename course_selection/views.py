@@ -14,7 +14,7 @@ import hashlib
 import json
 
 # TODO don't use import *
-from models import *  # NOQA
+from .models import *  # NOQA
 
 # @ensure_csrf_cookie
 
@@ -27,7 +27,7 @@ def index(request):
         return redirect('landing')
 
     return render(request, 'main/index.html', {
-        'username': unicode(request.user.username)
+        'username': str(request.user.username)
     })
 
 
@@ -119,9 +119,9 @@ def hydrate_course_listing_dict(course_listing):
 def hydrate_semester(semester):
     return {
         'id': semester.id,
-        'start_date': unicode(semester.start_date),
-        'end_date': unicode(semester.end_date),
-        'name': unicode(semester),
+        'start_date': str(semester.start_date),
+        'end_date': str(semester.end_date),
+        'name': str(semester),
         'term_code': semester.term_code
     }
 
@@ -208,14 +208,14 @@ def mobile_logged_in(request):
     """
     # TODO: retrieve Nice_User corresponding to request.user
     nice_user = Nice_User.objects.get(netid=request.user.username)
-    return HttpResponse(request.user.username + " " + unicode(nice_user.id))
+    return HttpResponse(request.user.username + " " + str(nice_user.id))
 
 
 #############################################################################
 # course enrollment form generation
 #############################################################################
 
-from pdf import get_template
+from .pdf import get_template
 
 
 def get_worksheet_pdf(request, schedule_id, template_name='course_enrollment_worksheet.pdf', **kwargs):
@@ -281,7 +281,7 @@ def fill_out_term(context, schedule_obj):
 def fill_out_acad(context, schedule_obj):
     end_year = int(schedule_obj.semester.term_code[1:3])
     start_year = end_year - 1
-    context['acad'] = unicode(start_year) + '-' + unicode(end_year)
+    context['acad'] = str(start_year) + '-' + str(end_year)
     return context
 
 
@@ -360,7 +360,7 @@ def ical_feed(request, cal_id):
     semester = sched.semester
 
     cal.add('X-WR-CALNAME', 'ReCal %s (%s)' %
-            (unicode(semester), sched.user.netid))
+            (str(semester), sched.user.netid))
     cal.add('X-WR-CALDESC', sched.title)  # 'ReCal Schedule'
     # https://msdn.microsoft.com/en-us/library/ee178699(v=exchg.80).aspx. 15
     # minute updates.
@@ -396,7 +396,7 @@ def ical_feed(request, cal_id):
             section = Section.objects.get(Q(pk=section_id))
             for meeting in section.meetings.all():
                 event = Event()
-                event.add('summary', unicode(section))  # name of the event
+                event.add('summary', str(section))  # name of the event
                 event.add('location', vText(
                     meeting.location + ', Princeton, NJ'))
 

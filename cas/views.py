@@ -1,7 +1,7 @@
 """CAS login/logout replacement views"""
 from datetime import datetime
-from urllib import urlencode
-import urlparse
+from urllib.parse import urlencode
+import urllib.parse
 from operator import itemgetter
 
 from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
@@ -33,7 +33,7 @@ def _service_url(request, redirect_to=None, gateway=False):
                 del query_dict['ticket']
             except:
                 pass
-            query_list = query_dict.items()
+            query_list = list(query_dict.items())
 
             #remove duplicate params
             for item in query_list:
@@ -83,12 +83,12 @@ def _login_url(service, ticket='ST', gateway=False):
         ticket = 'ST'
     login = LOGINS.get(ticket[:2],'login')
 
-    return urlparse.urljoin(settings.CAS_SERVER_URL, login) + '?' + urlencode(params)
+    return urllib.parse.urljoin(settings.CAS_SERVER_URL, login) + '?' + urlencode(params)
 
 def _logout_url(request, next_page=None):
     """Generates CAS logout URL"""
 
-    url = urlparse.urljoin(settings.CAS_SERVER_URL, 'logout')
+    url = urllib.parse.urljoin(settings.CAS_SERVER_URL, 'logout')
     if next_page:
         protocol = ('http://', 'https://')[request.is_secure()]
         host = request.get_host()

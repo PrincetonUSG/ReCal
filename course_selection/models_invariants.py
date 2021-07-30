@@ -1,5 +1,5 @@
 def check_schedule_invariants(schedule):
-    from models import Course
+    from .models import Course
 
     def has_user(schedule):
         return schedule.user is not None

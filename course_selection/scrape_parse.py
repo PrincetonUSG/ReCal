@@ -9,9 +9,9 @@ Procedure:
 """
 
 from lxml import etree
-from mobileapp import MobileApp
-import HTMLParser
-import urllib2
+from .mobileapp import MobileApp
+import html.parser
+import urllib.request, urllib.error, urllib.parse
 import re
 import json
 
@@ -27,7 +27,7 @@ class ParseError(Exception):
 
 
 def get_registrar_data(url):
-    req = urllib2.urlopen(url)
+    req = urllib.request.urlopen(url)
     data = req.read()
     req.close()
     bs = BeautifulSoup(data)
@@ -41,7 +41,7 @@ def scrape_parse_semester(term_code):
 
     CURRENT_SEMESTER = ['']
 
-    h = HTMLParser.HTMLParser()
+    h = html.parser.HTMLParser()
 
     def get_text(key, object):
         return h.unescape(raise_if_none(object.get(key), "key " + key + " does not exist"))
@@ -69,7 +69,7 @@ def scrape_parse_semester(term_code):
         """
         data = get_registrar_data(url)
         term_data = data['ps_registrar']['subjects'][str(term_code)]
-        return map(lambda x: x['code'], term_data)
+        return [x['code'] for x in term_data]
 
     def scrape_all():
         """ scrape all events from Princeton's course webfeed
@@ -80,7 +80,7 @@ def scrape_parse_semester(term_code):
         departments = get_department_list(COURSE_OFFERINGS)
         courses = []
         for department in departments:
-            print 'Processing ' + department
+            print('Processing ' + department)
             courses += scrape(department)
         return courses
 
@@ -223,7 +223,7 @@ def scrape_parse_semester(term_code):
         """Hack to remove namespace in the document in place.
 
         """
-        ns = u'{%s}' % namespace
+        ns = '{%s}' % namespace
         nsl = len(ns)
         for elem in doc.getiterator():
             if elem.tag.startswith(ns):

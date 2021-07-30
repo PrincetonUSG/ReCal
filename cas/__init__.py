@@ -19,7 +19,7 @@ _DEFAULTS = {
     'CAS_CUSTOM_FORBIDDEN':None
 }
 
-for key, value in _DEFAULTS.iteritems():
+for key, value in _DEFAULTS.items():
     try:
         getattr(settings, key)
     except AttributeError:

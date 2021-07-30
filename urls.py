@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 # TODO we're not sure if this is needed
-import cas  # NOQA
+from . import cas  # NOQA
 
 urlpatterns = patterns(
     "",

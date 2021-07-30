@@ -9,7 +9,7 @@ continuity_check_url = "/checks/continuity"
 
 VERBOSE=False
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import time
 from datetime import datetime
 import socket
@@ -47,13 +47,13 @@ def sendEmail(base_url, tested_url, test_time_utc):
 	server.quit()
 
 if VERBOSE:
-	print 'testing', base_url, continuity_check_url
+	print('testing', base_url, continuity_check_url)
 url = base_url + continuity_check_url
-up = urllib.urlopen(url).read() == "OK"
+up = urllib.request.urlopen(url).read() == "OK"
 if not up:
 	# try again in 5 seconds
-	up = urllib.urlopen(url).read() == "OK"
+	up = urllib.request.urlopen(url).read() == "OK"
 	if not up: # if still not up
 		# message us
 		sendEmail(base_url, continuity_check_url, str(datetime.utcnow()))
-		print 'email sent because failed', base_url, continuity_check_url
+		print('email sent because failed', base_url, continuity_check_url)

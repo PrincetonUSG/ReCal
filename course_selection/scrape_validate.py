@@ -9,7 +9,7 @@ class _ValidateError(Exception):
 
 def validate_course(course):
     def validate_string(item):
-        if item is None or not isinstance(item, basestring):
+        if item is None or not isinstance(item, str):
             raise _ValidateError(str(item) + ' is not a string')
 
     def validate_string_upper(item):
@@ -33,7 +33,7 @@ def validate_course(course):
                                  ' exceeded max length of ' + str(length))
 
     def validate_dict(dict, rules):
-        for key, validator in rules.items():
+        for key, validator in list(rules.items()):
             try:
                 validator(dict[key])
             except _ValidateError as e:

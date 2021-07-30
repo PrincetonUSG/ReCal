@@ -5,7 +5,7 @@ try:
 except ImportError:
     from django.utils.functional import wraps
 
-from urllib import urlencode
+from urllib.parse import urlencode
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, HttpResponseRedirect

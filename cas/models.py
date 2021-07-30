@@ -1,5 +1,6 @@
-from urlparse import urljoin
-from urllib import urlencode, urlopen
+from urllib.parse import urljoin
+from urllib.parse import urlencode
+from urllib.request import urlopen
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User

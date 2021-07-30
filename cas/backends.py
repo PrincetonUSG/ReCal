@@ -1,7 +1,7 @@
 """CAS authentication backend"""
-
-from urllib import urlencode, urlopen
-from urlparse import urljoin
+from urllib.parse import urlencode
+from urllib.request import urlopen
+from urllib.parse import urljoin
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist

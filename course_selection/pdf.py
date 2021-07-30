@@ -54,7 +54,7 @@ class PdfTemplate(object):
         if context is None:
             context = {}
 
-        context = context.items()
+        context = list(context.items())
         output, err = self.fill_form(context, self.origin.name)
         if err:
             raise PdfTemplateError(err)
@@ -85,7 +85,7 @@ class PdfTemplate(object):
                 return process.communicate(input=input_data)
             else:
                 return process.communicate()
-        except OSError, e:
+        except OSError as e:
             return None, e
 
     def set_pdftk_bin(self):
@@ -120,7 +120,7 @@ def get_template(template_name):
         raise exception
 
     def fake_strict_errors(exception):
-        return (u'', -1)
+        return ('', -1)
 
     # Loading hacks
     # Ignore UnicodeError, due to PDF file read

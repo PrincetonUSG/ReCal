@@ -20,7 +20,7 @@ import re
 import string
 import sqlite3
 import sys
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from bs4 import BeautifulSoup
 
 TERM_CODE = 1122  # seems to be fall 11-12
@@ -151,7 +151,7 @@ def scrape_page(page):
   return course
 
 def scrape_id(id):
-  page = urllib2.urlopen(COURSE_URL.format(term=TERM_CODE, courseid=id))
+  page = urllib.request.urlopen(COURSE_URL.format(term=TERM_CODE, courseid=id))
   return scrape_page(page)
 
 def scrape_all():
@@ -164,7 +164,7 @@ def scrape_all():
   To be robust in case the registrar breaks a small subset of courses, we trap
   all exceptions and log them to stdout so that the rest of the program can continue.
   """
-  search_page = urllib2.urlopen(LIST_URL.format(term=TERM_CODE))
+  search_page = urllib.request.urlopen(LIST_URL.format(term=TERM_CODE))
   courseids = get_course_list(search_page)
 
   n = 0
@@ -184,8 +184,8 @@ if __name__ == "__main__":
   for course in scrape_all():
     if first:
       first = False
-      print '['
+      print('[')
     else:
-      print ','
+      print(',')
     json.dump(course, sys.stdout)
-  print ']'
+  print(']')
