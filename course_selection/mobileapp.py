@@ -83,7 +83,7 @@ class Configs:
             self.REFRESH_TOKEN_URL,
             data=kwargs,
             headers={
-                'Authorization': 'Basic ' + base64.b64encode(bytes(self.CONSUMER_KEY + ':' + self.CONSUMER_SECRET)).decode('utf-8')
+                'Authorization': 'Basic ' + base64.b64encode(bytes(self.CONSUMER_KEY + ':' + self.CONSUMER_SECRET, 'utf-8')).decode('utf-8')
             },
         )
         text = req.text

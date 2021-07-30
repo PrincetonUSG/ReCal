@@ -1,7 +1,7 @@
 from django.conf import settings
-from .scrape_parse import scrape_parse_semester
-from .scrape_validate import validate_course
-from .scrape_import import scrape_import_course, ScrapeCounter
+from scrape_parse import scrape_parse_semester
+from scrape_validate import validate_course
+from scrape_import import scrape_import_course, ScrapeCounter
 
 
 def get_all_courses():
