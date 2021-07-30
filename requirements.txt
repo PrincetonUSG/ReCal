@@ -32,5 +32,4 @@ sqlparse==0.4.1
 static==1.1.1
 static3==0.7.0
 whitenoise==5.3.0
-wsgiref==0.1.2
 icalendar==4.0.7
