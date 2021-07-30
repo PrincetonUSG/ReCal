@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.cache import caches
 from django.views.decorators.cache import cache_page, never_cache
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 # send regardless of whether Django thinks we should
 
 from view_cache_utils import cache_page_with_prefix

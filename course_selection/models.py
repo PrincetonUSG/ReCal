@@ -47,7 +47,7 @@ class Color_Palette(models.Model):
 
 class Course(models.Model):
     # relationships
-    semester = models.ForeignKey(Semester)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
     professors = models.ManyToManyField(Professor)
 
     # fields
@@ -102,7 +102,7 @@ class Section(models.Model):
     )
 
     # relationships
-    course = models.ForeignKey(Course, related_name="sections")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="sections")
 
     # fields
     name = models.CharField(max_length=100, default='')
@@ -122,7 +122,7 @@ class Section(models.Model):
 
 
 class Meeting(models.Model):
-    section = models.ForeignKey(Section, related_name="meetings")
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name="meetings")
     start_time = models.CharField(max_length=20)
     end_time = models.CharField(max_length=20)
     days = models.CharField(max_length=10)
@@ -135,7 +135,7 @@ class Meeting(models.Model):
 class Course_Listing(models.Model):
     # TODO: this line causes admin site to fail, commenting out related_name
     # causes tastypie to fail
-    course = models.ForeignKey(Course, related_name="course_listing_set")
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="course_listing_set")
     # Even though the max_length should be 3~4, there are extreme cases.
     dept = models.CharField(max_length=10)
     number = models.CharField(max_length=10)
@@ -155,8 +155,8 @@ class Schedule(models.Model):
     It is done in migrations 23-25. Note that you have to split data from schema migrations. So we do a schema migration, a data migration, and then a schema migration.
     """
     # relationships
-    semester = models.ForeignKey(Semester)
-    user = models.ForeignKey('Nice_User')
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    user = models.ForeignKey('Nice_User', on_delete=models.CASCADE)
 
     # fields
     available_colors = models.TextField(null=True)
@@ -204,12 +204,13 @@ def make_new_nice_user(sender, instance, created, **kwargs):
         if settings.DEBUG:
             raise e
 
+
 post_save.connect(make_new_nice_user, sender=User)
 
 
 class Friend_Request(models.Model):
-    from_user = models.ForeignKey(Nice_User, related_name='from_users')
-    to_user = models.ForeignKey(Nice_User, related_name='to_users')
+    from_user = models.ForeignKey(Nice_User, on_delete=models.CASCADE, related_name='from_users')
+    to_user = models.ForeignKey(Nice_User, on_delete=models.CASCADE, related_name='to_users')
 
     class Meta:
         unique_together = ('from_user', 'to_user')

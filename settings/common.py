@@ -174,7 +174,7 @@ PDFTK_BIN = os.environ.get('PDFTK_BIN', '')
 
 ########## WhiteNoise Settings #######################
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ########## WhiteNoise Settings END #######################
 
