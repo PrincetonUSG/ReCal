@@ -8,14 +8,7 @@ Procedure:
 - Parse it for courses, sections, and lecture times (as recurring events)
 """
 
-from lxml import etree
 from mobileapp import MobileApp
-import HTMLParser
-import urllib2
-import re
-import json
-
-from bs4 import BeautifulSoup
 
 
 class ParseError(Exception):
@@ -26,25 +19,12 @@ class ParseError(Exception):
         return repr(self.value)
 
 
-def get_registrar_data(url):
-    req = urllib2.urlopen(url)
-    data = req.read()
-    req.close()
-    bs = BeautifulSoup(data)
-    script = bs.find('script', attrs={'data-drupal-selector': "drupal-settings-json"})
-    return json.loads(script.text)
-
-
 def scrape_parse_semester(term_code):
     TERM_CODE = term_code
-    COURSE_OFFERINGS = "http://registrar.princeton.edu/course-offerings/"
-
     CURRENT_SEMESTER = ['']
 
-    h = HTMLParser.HTMLParser()
-
     def get_text(key, object):
-        return h.unescape(raise_if_none(object.get(key), "key " + key + " does not exist"))
+        return raise_if_none(object.get(key), "key " + key + " does not exist")
 
     def get_current_semester(data):
         """ get semester according to TERM_CODE
@@ -60,16 +40,16 @@ def scrape_parse_semester(term_code):
             }
         return CURRENT_SEMESTER[0]
 
-    def get_department_list(url):
-        """ get list of departments
+    def get_department_list():
+        res = MobileApp().get_courses(term=term_code, subject='list')
 
-        Parses seed_page and returns a list of the departments' names.
-        Seed page should be "http://registrar.princeton.edu/course-offerings/"
-        Automatically gets the courses for the current term.
-        """
-        data = get_registrar_data(url)
-        term_data = data['ps_registrar']['subjects'][str(term_code)]
-        return map(lambda x: x['code'], term_data)
+        try:
+            codes = [k['code'] for k in res['term'][0]['subjects']]
+            codes[0] and codes[1]
+        except:
+            raise Exception('failed to get all department codes')
+
+        return codes
 
     def scrape_all():
         """ scrape all events from Princeton's course webfeed
@@ -77,10 +57,10 @@ def scrape_parse_semester(term_code):
         """
         #global course_count
         #global section_count
-        departments = get_department_list(COURSE_OFFERINGS)
+        departments = get_department_list()
         courses = []
         for department in departments:
-            print 'Processing ' + department
+            print('Processing ' + department)
             courses += scrape(department)
         return courses
 
@@ -218,15 +198,5 @@ def scrape_parse_semester(term_code):
             'meetings': [parse_meeting(x) for x in none_to_empty_list(meetings)]
         }
         return test
-
-    def remove_namespace(doc, namespace):
-        """Hack to remove namespace in the document in place.
-
-        """
-        ns = u'{%s}' % namespace
-        nsl = len(ns)
-        for elem in doc.getiterator():
-            if elem.tag.startswith(ns):
-                elem.tag = elem.tag[nsl:]
 
     return scrape_all()
