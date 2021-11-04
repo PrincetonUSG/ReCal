@@ -12,7 +12,7 @@ TODO
 
 Make a new branch, e.g. `sp-22` , then make the following changes to `settings/common.py` , landing, and status pages:
 
-https://github.com/recalapp/recal/commit/1464d5922f3a1fcc0d756565a3a0e8689e9e154d
+https://github.com/PrincetonUSG/recal/pull/11 (ignore README changes)
 
 Test out on test-recal:
 
@@ -22,7 +22,7 @@ Test out on test-recal:
     heroku run python manage.py course_selection_courses_init --app=test-recal
     # heroku run python manage.py clear_cache --app=test-recal # not needed but may help
 
-Test at test-recal.herokuapp.com. If good, merge `sp-22` into `master`, which will auto-deploy to recal.io.
+Test at test-recal.herokuapp.com. If nothing breaks, merge `sp-22` into `master`, which will auto-deploy to recal.io.
 
 Then, test on recal.io.
 And bump number of dynos.
