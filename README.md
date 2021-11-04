@@ -22,13 +22,7 @@ Test out on test-recal:
     heroku run python manage.py course_selection_courses_init --app=test-recal
     # heroku run python manage.py clear_cache --app=test-recal # not needed but may help
 
-Test at test-recal.herokuapp.com. If good, merge `sp-22` into `master` , and deploy as follows:
-
-
-    git push origin master
-    git remote add prod https://git.heroku.com/newice.git
-    git push prod master
-    heroku run python manage.py course_selection_courses_init --app=newice
+Test at test-recal.herokuapp.com. If good, merge `sp-22` into `master`, which will auto-deploy to recal.io.
 
 Then, test on recal.io.
 And bump number of dynos.
