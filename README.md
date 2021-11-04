@@ -10,23 +10,19 @@ TODO
 
 ## Updating for a new semester
 
-Make a new branch, e.g. `sp16` , then make the following changes to `settings/common.py` , landing, and status pages:
+Make a new branch, e.g. `sp-22` , then make the following changes to `settings/common.py` , landing, and status pages:
 
-https://github.com/maximz/recal/commit/4dbc0684c132051cc4ed72dc7efae92a8b9949cd 
+https://github.com/recalapp/recal/commit/1464d5922f3a1fcc0d756565a3a0e8689e9e154d
 
 Test out on test-recal:
 
 
     git remote add dev https://git.heroku.com/test-recal.git
-    git push dev sp16:master
+    git push dev sp-22:master
     heroku run python manage.py course_selection_courses_init --app=test-recal
     # heroku run python manage.py clear_cache --app=test-recal # not needed but may help
 
-Test at test-recal.herokuapp.com.
-
-If good, then add a message to the main page: https://github.com/maximz/recal/commit/8bc566f7b8cd45f351b90d4294bbebf883c22baa
-
-Then merge `sp16` into `master` , and deploy as follows:
+Test at test-recal.herokuapp.com. If good, merge `sp-22` into `master` , and deploy as follows:
 
 
     git push origin master
