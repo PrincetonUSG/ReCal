@@ -393,7 +393,10 @@ def ical_feed(request, cal_id):
         # course = Course.objects.get(Q(id=course_obj['course_id'])) #
         # course_obj is json object; course is model
         for section_id in course_obj['sections']:
-            section = Section.objects.get(Q(pk=section_id))
+            try:
+                section = Section.objects.get(Q(pk=section_id))
+            except:
+                continue
             for meeting in section.meetings.all():
                 event = Event()
                 event.add('summary', unicode(section))  # name of the event
