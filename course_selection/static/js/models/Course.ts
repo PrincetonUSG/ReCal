@@ -10,7 +10,7 @@ class Course implements ICourse {
     private static EASYPCE_BASE_URL: string = "http://easypce.com/courses/";
     private static REGISTRAR_BASE_URL: string = "https://registrar.princeton.edu/course-offerings/course_details.xml?";
     private static COURSES_BASE_URL: string = "https://www.princetoncourses.com/course/"
-    private static TIGERSNATCH_BASE_URL: string = "https://snatch.tigerapps.org/course?";
+    private static TIGERSNATCH_BASE_URL: string = "https://tigersnatch.com/course?";
     private static REGISTRAR_ID_DIGITS: number = 6;
 
     public title: string;
