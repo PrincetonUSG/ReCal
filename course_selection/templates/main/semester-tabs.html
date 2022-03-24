@@ -1,12 +1,6 @@
 {% load staticfiles %}
 {% verbatim %}
 <div id="wrap">
-    <div class="container" style="position: fixed; width: 25%; z-index: 1000; bottom: 100px; left: 20px; margin-bottom: 10px">
-        <div class="alert alert-success alert-dismissible" role="alert">
-             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-             <b>Spring 2022 Courses Updated!</b> We have added the Spring 2022 courses to ReCal. Thank you for your patience.
-         </div>
-    </div>
     <div ng-controller="SemCtrl as semCtrl" id="semesterContainer">
         <tabset>
         <tab ng-repeat = "semester in semesters"
