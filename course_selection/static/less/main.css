@@ -159,7 +159,7 @@ body {
   height: 100%;
   max-width: 100%;
   margin: 0 auto;
-  padding: 0 12px;
+  padding: 0 10px 0 20px;
 }
 @media screen and (min-width: 1440px) {
   #header-inner {
@@ -182,7 +182,6 @@ body {
 }
 #username {
   height: 100%;
-  width: 10vh;
   line-height: 100%;
   font-size: 1.25em;
 }
