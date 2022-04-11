@@ -169,13 +169,13 @@ body {
 #logo {
   height: 100%;
   float: left;
+  display: flex;
+  align-items: center;
 }
 #logo > a {
   text-decoration: none;
   position: absolute;
-  top: 10%;
   display: block;
-  height: 100%;
   text-align: center;
   font-size: 1.5em;
   color: #dddddd;
@@ -698,4 +698,7 @@ md-tabs-canvas {
   overflow: visible;
   border-radius: 0 !important;
   border-bottom: none;
+}
+.fc table {
+  width: 99.9%
 }
