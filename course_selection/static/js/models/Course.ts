@@ -69,7 +69,7 @@ class Course implements ICourse {
 
     private getSnatchLink(): string {
         return Course.TIGERSNATCH_BASE_URL + "courseid="
-            + this.registrar_id + "&skip";
+            + this.registrar_id + "&skip&recal";
     }
 
     private getSections(input): Array<ISection> {
