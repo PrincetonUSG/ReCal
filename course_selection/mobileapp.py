@@ -49,19 +49,7 @@ class MobileApp:
         if n_recent_terms < 1:
             raise Exception("n_recent_terms must be >= 1")
 
-        res = {
-            "term": [
-                {
-                    "code": "1232",
-                    "suffix": "F2022",
-                    "name": "F22-23",
-                    "cal_name": "Fall 2022",
-                    "reg_name": "22-23 Fall",
-                    "start_date": "2022-09-06",
-                    "end_date": "2023-01-29",
-                }
-            ]
-        }
+        res = self.get_terms()
         try:
             term_codes = [res["term"][0]["code"]]
             curr = term_codes[0]
