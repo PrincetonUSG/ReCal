@@ -81,7 +81,7 @@ class MobileApp:
 
         # Check to see if the response failed due to invalid credentials
         text = self._updateConfigs(text, endpoint, **kwargs)
-
+        print(text)
         return json.loads(text)
 
     def _updateConfigs(self, text, endpoint, **kwargs):
@@ -128,4 +128,5 @@ class Configs:
 if __name__ == "__main__":
     api = MobileApp()
     # print(api.get_courses(term='1214', subject='list'))
-    print(api.get_courses(term="1214", search="NEU350"))
+    # print(api.get_courses(term="1214", search="NEU350"))
+    print(api.get_active_term_codes(n_recent_terms=4))
