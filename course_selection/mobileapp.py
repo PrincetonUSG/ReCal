@@ -10,12 +10,11 @@ import json
 import base64
 from os import environ
 
-CONSUMER_KEY = environ['CONSUMER_KEY']
-CONSUMER_SECRET = environ['CONSUMER_SECRET']
+CONSUMER_KEY = environ["CONSUMER_KEY"]
+CONSUMER_SECRET = environ["CONSUMER_SECRET"]
 
 
 class MobileApp:
-
     def __init__(self):
         self.configs = Configs()
 
@@ -25,7 +24,7 @@ class MobileApp:
     # title)
 
     def get_courses(self, **kwargs):
-        kwargs['fmt'] = 'json'
+        kwargs["fmt"] = "json"
         return self._getJSON(self.configs.COURSE_COURSES, **kwargs)
 
     # wrapper function for _getJSON with the courses/terms endpoint.
@@ -33,7 +32,7 @@ class MobileApp:
 
     def get_terms(self):
         return self._getJSON(self.configs.COURSE_TERMS, fmt="json")
-    
+
     # generates the n_recent_terms (default 3) most recent term codes
 
     def get_active_term_codes(self, n_recent_terms=3):
@@ -41,20 +40,32 @@ class MobileApp:
             # curr is Spring, so just change last digit
             if curr[-1] == "4":
                 return curr[:-1] + "2"
-            
+
             # curr is Fall, so decrement middle two digits and change last digit
             year = curr[1:3]
             new_year = str(int(year) - 1)
             return "1" + new_year + "4"
-            
+
         if n_recent_terms < 1:
             raise Exception("n_recent_terms must be >= 1")
 
-        res = {'term': [{'code': '1232', 'suffix': 'F2022', 'name': 'F22-23', 'cal_name': 'Fall 2022', 'reg_name': '22-23 Fall', 'start_date': '2022-09-06', 'end_date': '2023-01-29'}]}
+        res = {
+            "term": [
+                {
+                    "code": "1232",
+                    "suffix": "F2022",
+                    "name": "F22-23",
+                    "cal_name": "Fall 2022",
+                    "reg_name": "22-23 Fall",
+                    "start_date": "2022-09-06",
+                    "end_date": "2023-01-29",
+                }
+            ]
+        }
         try:
             term_codes = [res["term"][0]["code"]]
             curr = term_codes[0]
-            for _ in range(n_recent_terms-1):
+            for _ in range(n_recent_terms - 1):
                 prev_term_code = construct_prev_term_code(curr)
                 term_codes.append(prev_term_code)
                 curr = prev_term_code
@@ -63,22 +74,20 @@ class MobileApp:
         except:
             return []
 
-    '''
+    """
     This function allows a user to make a request to 
     a certain endpoint, with the BASE_URL of 
     https://api.princeton.edu:443/mobile-app
 
     The parameters kwargs are keyword arguments. It
     symbolizes a variable number of arguments 
-    '''
+    """
 
     def _getJSON(self, endpoint, **kwargs):
         req = requests.get(
             self.configs.BASE_URL + endpoint,
             params=kwargs if "kwargs" not in kwargs else kwargs["kwargs"],
-            headers={
-                "Authorization": "Bearer " + self.configs.ACCESS_TOKEN
-            },
+            headers={"Authorization": "Bearer " + self.configs.ACCESS_TOKEN},
         )
         text = req.text
 
@@ -95,9 +104,7 @@ class MobileApp:
             req = requests.get(
                 self.configs.BASE_URL + endpoint,
                 params=kwargs if "kwargs" not in kwargs else kwargs["kwargs"],
-                headers={
-                    "Authorization": "Bearer " + self.configs.ACCESS_TOKEN
-                },
+                headers={"Authorization": "Bearer " + self.configs.ACCESS_TOKEN},
             )
             text = req.text
 
@@ -108,26 +115,28 @@ class Configs:
     def __init__(self):
         self.CONSUMER_KEY = CONSUMER_KEY
         self.CONSUMER_SECRET = CONSUMER_SECRET
-        self.BASE_URL = 'https://api.princeton.edu:443/student-app/1.0.0'
-        self.COURSE_COURSES = '/courses/courses'
-        self.REFRESH_TOKEN_URL = 'https://api.princeton.edu:443/token'
-        self._refreshToken(grant_type='client_credentials')
+        self.BASE_URL = "https://api.princeton.edu:443/student-app/1.0.0"
+        self.COURSE_COURSES = "/courses/courses"
+        self.REFRESH_TOKEN_URL = "https://api.princeton.edu:443/token"
+        self._refreshToken(grant_type="client_credentials")
 
     def _refreshToken(self, **kwargs):
         req = requests.post(
             self.REFRESH_TOKEN_URL,
             data=kwargs,
             headers={
-                'Authorization': 'Basic ' + base64.b64encode(bytes(self.CONSUMER_KEY + ':' + self.CONSUMER_SECRET)).decode('utf-8')
+                "Authorization": "Basic "
+                + base64.b64encode(
+                    bytes(self.CONSUMER_KEY + ":" + self.CONSUMER_SECRET)
+                ).decode("utf-8")
             },
         )
         text = req.text
         response = json.loads(text)
-        self.ACCESS_TOKEN = response['access_token']
+        self.ACCESS_TOKEN = response["access_token"]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     api = MobileApp()
     # print(api.get_courses(term='1214', subject='list'))
-    print(api.get_courses(term='1214',
-                          search='NEU350'))
+    print(api.get_courses(term="1214", search="NEU350"))

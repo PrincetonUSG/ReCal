@@ -34,63 +34,63 @@ path.append(DJANGO_ROOT)
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = ""
 
 # Application definition
 
 INSTALLED_APPS = (
-    'grappelli',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admindocs',
+    "grappelli",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.admindocs",
     #'security',
-    'tastypie',
-    'cas',
-    'course_selection'
+    "tastypie",
+    "cas",
+    "course_selection",
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
     #'security.middleware.XssProtectMiddleware',
-    'django.middleware.gzip.GZipMiddleware',
-    'cas.middleware.CASMiddleware',
-    'minidetector.Middleware',
+    "django.middleware.gzip.GZipMiddleware",
+    "cas.middleware.CASMiddleware",
+    "minidetector.Middleware",
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = "urls"
 
-WSGI_APPLICATION = 'course_selection.wsgi.application'
+WSGI_APPLICATION = "course_selection.wsgi.application"
 
 # START AUTHENTICATION CONFIGURATION
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'cas.backends.CASBackend',
+    "django.contrib.auth.backends.ModelBackend",
+    "cas.backends.CASBackend",
 )
 
-CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
+CAS_SERVER_URL = "https://fed.princeton.edu/cas/"
 
-CAS_REDIRECT_URL = '/'
+CAS_REDIRECT_URL = "/"
 
-LOGIN_URL = '/login'
+LOGIN_URL = "/login"
 
 # END AUTHENTICATION CONFIGURATION
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'America/New_York'  # changed from 'EST'
+TIME_ZONE = "America/New_York"  # changed from 'EST'
 
 USE_I18N = True
 
@@ -103,80 +103,76 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 # Parse database configuration from $DATABASE_URL
-#import dj_database_url
-#DATABASES['default'] =  dj_database_url.config()
-DATABASES = {
-}
+# import dj_database_url
+# DATABASES['default'] =  dj_database_url.config()
+DATABASES = {}
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Static asset configuration
-STATIC_ROOT = join(DJANGO_ROOT, 'staticfiles')
+STATIC_ROOT = join(DJANGO_ROOT, "staticfiles")
 
-STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
-STATIC_URL = STATIC_HOST + '/static/'
+STATIC_HOST = os.environ.get("DJANGO_STATIC_HOST", "")
+STATIC_URL = STATIC_HOST + "/static/"
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
+STATICFILES_FINDERS = ("django.contrib.staticfiles.finders.AppDirectoriesFinder",)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
+    "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.request",
 )
 
-STATICFILES_DIRS = (
-    normpath(join(DJANGO_ROOT, 'course_selection', 'static')),
-)
+STATICFILES_DIRS = (normpath(join(DJANGO_ROOT, "course_selection", "static")),)
 
-TEMPLATE_DIRS = [normpath(join(DJANGO_ROOT, 'course_selection', 'templates')),
-                 ]
+TEMPLATE_DIRS = [
+    normpath(join(DJANGO_ROOT, "course_selection", "templates")),
+]
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.contrib.auth.context_processors.auth',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.contrib.auth.context_processors.auth",
                 "django.core.context_processors.request",
             ],
-        }
+        },
     },
     {
-        'BACKEND': 'course_selection.pdf.PdftkEngine',
-        'APP_DIRS': True,
+        "BACKEND": "course_selection.pdf.PdftkEngine",
+        "APP_DIRS": True,
     },
 ]
 
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',  # overwritten in prod.py
+    "default": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",  # overwritten in prod.py
     },
-    'courses': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',  # overwritten in prod.py
+    "courses": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",  # overwritten in prod.py
     },
-    'courseapi': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',  # overwritten in prod.py
+    "courseapi": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",  # overwritten in prod.py
     },
-    'resources': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'TIMEOUT': 60
-    }
+    "resources": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "TIMEOUT": 60,
+    },
 }
 
 # PDFTK for PDF GENERATION
 
-PDFTK_BIN = os.environ.get('PDFTK_BIN', '')
+PDFTK_BIN = os.environ.get("PDFTK_BIN", "")
 
 # END PDFTK
 
 
 ########## WhiteNoise Settings #######################
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.django.GzipManifestStaticFilesStorage"
 
 ########## WhiteNoise Settings END #######################
 

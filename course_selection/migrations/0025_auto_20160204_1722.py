@@ -8,13 +8,13 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('course_selection', '0024_auto_20160204_1722'),
+        ("course_selection", "0024_auto_20160204_1722"),
     ]
 
     operations = [
-    migrations.AlterField(
-            model_name='schedule',
-            name='ical_uuid',
+        migrations.AlterField(
+            model_name="schedule",
+            name="ical_uuid",
             field=models.UUIDField(default=uuid.uuid4, unique=True, null=False),
         ),
     ]
