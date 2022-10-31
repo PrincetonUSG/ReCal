@@ -13,6 +13,8 @@ from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 import os
 
+from course_selection.mobileapp import MobileApp
+
 # PATH CONFIGURATION
 # Absolute filesystem path to the Django project directory:
 DJANGO_ROOT = dirname(dirname(abspath(__file__)))
@@ -193,5 +195,4 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # Note: generally, limit this to three terms. This defines the terms that are
 #   scraped and the default terms displayed on schedules.
 
-# Include only two term codes in this list, presumably the two most recent ones!
-ACTIVE_TERMS = sorted([1224, 1232])
+ACTIVE_TERMS = MobileApp().get_active_term_codes(n_recent_terms=3)

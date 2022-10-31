@@ -28,6 +28,41 @@ class MobileApp:
         kwargs['fmt'] = 'json'
         return self._getJSON(self.configs.COURSE_COURSES, **kwargs)
 
+    # wrapper function for _getJSON with the courses/terms endpoint.
+    # takes no arguments.
+
+    def get_terms(self):
+        return self._getJSON(self.configs.COURSE_TERMS, fmt="json")
+    
+    # generates the n_recent_terms (default 3) most recent term codes
+
+    def get_active_term_codes(self, n_recent_terms=3):
+        def construct_prev_term_code(curr):
+            # curr is Spring, so just change last digit
+            if curr[-1] == "4":
+                return curr[:-1] + "2"
+            
+            # curr is Fall, so decrement middle two digits and change last digit
+            year = curr[1:3]
+            new_year = str(int(year) - 1)
+            return "1" + new_year + "4"
+            
+        if n_recent_terms < 1:
+            raise Exception("n_recent_terms must be >= 1")
+
+        res = {'term': [{'code': '1232', 'suffix': 'F2022', 'name': 'F22-23', 'cal_name': 'Fall 2022', 'reg_name': '22-23 Fall', 'start_date': '2022-09-06', 'end_date': '2023-01-29'}]}
+        try:
+            term_codes = [res["term"][0]["code"]]
+            curr = term_codes[0]
+            for _ in range(n_recent_terms-1):
+                prev_term_code = construct_prev_term_code(curr)
+                term_codes.append(prev_term_code)
+                curr = prev_term_code
+            term_codes.reverse()
+            return [str(e) for e in term_codes]
+        except:
+            return []
+
     '''
     This function allows a user to make a request to 
     a certain endpoint, with the BASE_URL of 
