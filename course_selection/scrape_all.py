@@ -5,7 +5,6 @@ from scrape_import import scrape_import_course, ScrapeCounter
 
 
 def get_all_courses():
-    # we can generate these given settings.CURR_TERM
     term_codes = settings.ACTIVE_TERMS
     for term_code in term_codes:
         try:

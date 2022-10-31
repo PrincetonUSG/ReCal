@@ -195,8 +195,3 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Include only two term codes in this list, presumably the two most recent ones!
 ACTIVE_TERMS = sorted([1224, 1232])
-
-# TODO: is this still used? if not, we can remove it
-# Use helper method nice.models.get_cur_semester() to get current Semester
-# object.
-CURR_TERM = ACTIVE_TERMS[-1]

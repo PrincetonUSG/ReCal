@@ -16,7 +16,7 @@ class Semester(models.Model):
     1132 = 1213Fall
     """
     term_code = models.CharField(
-        max_length=4, default=settings.CURR_TERM, db_index=True, unique=True)
+        max_length=4, default=settings.ACTIVE_TERMS[-1], db_index=True, unique=True)
 
     def __unicode__(self):
         end_year = int(self.term_code[1:3])
