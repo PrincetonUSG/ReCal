@@ -81,7 +81,6 @@ class MobileApp:
 
         # Check to see if the response failed due to invalid credentials
         text = self._updateConfigs(text, endpoint, **kwargs)
-        print(text)
         return json.loads(text)
 
     def _updateConfigs(self, text, endpoint, **kwargs):
@@ -103,7 +102,7 @@ class Configs:
     def __init__(self):
         self.CONSUMER_KEY = CONSUMER_KEY
         self.CONSUMER_SECRET = CONSUMER_SECRET
-        self.BASE_URL = "https://api.princeton.edu:443/student-app/1.0.0"
+        self.BASE_URL = "https://api.princeton.edu:443/student-app/1.0.1"
         self.COURSE_COURSES = "/courses/courses"
         self.COURSE_TERMS = "/courses/terms"
         self.REFRESH_TOKEN_URL = "https://api.princeton.edu:443/token"
