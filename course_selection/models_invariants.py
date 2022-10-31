@@ -12,6 +12,7 @@ def check_schedule_invariants(schedule):
 
     def enrolled_courses_exist(schedule):
         import json
+
         try:
             enrollments = json.parse(schedule.enrollments)
 
@@ -22,6 +23,7 @@ def check_schedule_invariants(schedule):
                     return True
                 except Course.DoesNotExist:
                     return False
+
             results = [course_exists(course) for course in enrollments]
             return reduce(lambda x, y: x and y, results, initializer=True)
         except:
