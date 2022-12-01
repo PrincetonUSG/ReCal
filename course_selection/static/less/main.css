@@ -701,3 +701,9 @@ md-tabs-canvas {
 .fc table {
   width: 99.9%
 }
+#announcement-banner {
+	font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 0;
+    padding: 10px 15px;
+}
