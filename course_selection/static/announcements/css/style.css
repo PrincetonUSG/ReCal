@@ -459,3 +459,10 @@ csmall2 {
 	padding-right: 15px;
 	font-size: 18px;
 }
+
+#announcement-banner {
+	font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 0;
+    padding: 10px 15px;
+}
