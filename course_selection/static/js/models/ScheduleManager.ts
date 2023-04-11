@@ -81,7 +81,27 @@ class ScheduleManager {
             var enrollments = this._constructEnrollments(newValue);
             this.schedule.enrollments = JSON.stringify(enrollments);
             this.schedule.$update().then((updatedSchedule) => {
-                console.log('schedule updated');
+              console.log("schedule updated!!");
+
+              // set overflow as hidden and then visible for element md-tabs.md-dynamic-height md-tabs-content-wrapper
+              // to fix the issue of the content not being visible when the page is loaded
+              jQuery("md-tabs.md-dynamic-height md-tabs-content-wrapper").attr(
+                "style",
+                "overflow: hidden !important"
+              );
+
+              setTimeout(() => {
+                jQuery(
+                  "md-tabs.md-dynamic-height md-tabs-content-wrapper"
+                ).attr("style", "overflow: hidden !important");
+                setTimeout(
+                  () =>
+                    jQuery(
+                      "md-tabs.md-dynamic-height md-tabs-content-wrapper"
+                    ).attr("style", "overflow: visible !important"),
+                  10
+                );
+              }, 500);
             });
         }, true);
     }
