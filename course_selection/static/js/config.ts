@@ -52,7 +52,7 @@ require.config(<any> /* TODO(dxue) fix type */ {
     priority: [
         "angular"
     ],
-    urlArgs: "bust=v10"
+    urlArgs: "bust=v11"
 });
 
 require(['angular',
